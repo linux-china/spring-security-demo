@@ -7,6 +7,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 
 import javax.servlet.Filter;
@@ -22,9 +24,9 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterBefore(tokenAuthenticationFilter(), SecurityContextHolderAwareRequestFilter.class).sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).
-                and().authorizeRequests()
+        http.addFilterAfter(tokenAuthenticationFilter(), SecurityContextPersistenceFilter.class).sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().authorizeRequests()
                 .antMatchers("/", "/static/**", "/doLogin").permitAll()
                 .antMatchers("/users/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()

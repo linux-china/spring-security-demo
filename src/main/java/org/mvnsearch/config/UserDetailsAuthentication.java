@@ -1,6 +1,6 @@
 package org.mvnsearch.config;
 
-import org.mvnsearch.service.CurrentUser;
+import org.mvnsearch.service.CurrentUserDetails;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 /**
@@ -12,7 +12,7 @@ public class UserDetailsAuthentication extends AbstractAuthenticationToken {
     private final Object principal;
     private final Object credentials;
 
-    public UserDetailsAuthentication(Object credentials, CurrentUser currentUser) {
+    public UserDetailsAuthentication(Object credentials, CurrentUserDetails currentUser) {
         super(currentUser.getAuthorities());
         this.principal = currentUser;
         this.credentials = credentials;

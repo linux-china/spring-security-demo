@@ -1,7 +1,7 @@
 package org.mvnsearch.config;
 
 import org.mvnsearch.domain.User;
-import org.mvnsearch.service.CurrentUser;
+import org.mvnsearch.service.CurrentUserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
@@ -35,7 +35,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             user.setId(1L);
             user.setRole("buyer");
             user.setPasswordHash(credentials);
-            CurrentUser currentUser = new CurrentUser(user);
+            CurrentUserDetails currentUser = new CurrentUserDetails(user);
             SecurityContextHolder.getContext().setAuthentication(new UserDetailsAuthentication(credentials, currentUser));
         }
         filterChain.doFilter(request, response);

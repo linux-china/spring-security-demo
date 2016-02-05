@@ -36,7 +36,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             user.setRole("buyer");
             user.setPasswordHash(credentials);
             CurrentUser currentUser = new CurrentUser(user);
-            SecurityContextHolder.getContext().setAuthentication(new TokenAuthentication(credentials, currentUser));
+            SecurityContextHolder.getContext().setAuthentication(new UserDetailsAuthentication(credentials, currentUser));
         }
         filterChain.doFilter(request, response);
     }

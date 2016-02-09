@@ -1,0 +1,59 @@
+@startuml
+
+interface UserDetails  {
+  String getUsername();
+  String getPassword();
+  Collection getAuthorities();
+  boolean isEnabled();
+}
+
+interface GrantedAuthority{
+   String getAuthority()
+}
+class DomainAccount {
+   Long id;
+   String name;
+   String password;
+}
+class CurrentUserDetails {
+   DomainAccount account;
+}
+UserDetails "1" -right-> "*" GrantedAuthority: authrities(roles)
+CurrentUserDetails -up-|> UserDetails
+CurrentUserDetails .right.> DomainAccount
+
+interface Principal {
+  String getName();
+}
+interface Authentication {
+  Object getDetails();
+  Object getCredentials();
+  Object getPrincipal();
+  boolean isAuthenticated();
+}
+Authentication -up-|> Principal
+Authentication --> UserDetails
+
+interface AuthenticationManager {
+   authenticate(Authentication authentication)
+}
+
+interface UserDetailsService <<DAO>> {
+   UserDetails loadUserByUsername(String username)
+}
+
+AuthenticationManager ..> UserDetailsService: find user details by nick
+AuthenticationManager -> Authentication
+
+class SecurityContextHolder {
+   static SecurityContext getContext();
+   static void clearContext()
+}
+interface SecurityContext {
+   Authentication getAuthentication();
+}
+SecurityContextHolder -down-> SecurityContext
+SecurityContext -right-> Authentication: hold
+
+
+@enduml

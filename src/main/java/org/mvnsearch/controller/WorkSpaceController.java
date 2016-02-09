@@ -3,6 +3,8 @@ package org.mvnsearch.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * workspace controller
  *
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WorkSpaceController {
 
     @RequestMapping("/home")
-    public String home() {
+    public String home(HttpServletRequest request) {
         return "home";
     }
 }

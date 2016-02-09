@@ -22,7 +22,6 @@ import javax.servlet.Filter;
  * @author linux_china
  */
 @Configuration
-@EnableWebSecurity
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -31,7 +30,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterAfter(tokenAuthenticationFilter(), SecurityContextPersistenceFilter.class).sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/", "/static/**", "/doLogin").permitAll()
+                .antMatchers("/", "/css/**", "/doLogin").permitAll()
                 .antMatchers("/users/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()
@@ -45,7 +44,9 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
                 .deleteCookies("remember-me")
+                .deleteCookies("token")
                 .logoutSuccessUrl("/")
                 .permitAll()
                 .and()

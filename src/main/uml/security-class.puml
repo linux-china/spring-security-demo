@@ -34,6 +34,9 @@ interface Authentication {
 Authentication -up-|> Principal
 Authentication --> UserDetails
 
+interface AuthenticationProvider {
+   Authentication authenticate(Authentication authentication)
+}
 interface AuthenticationManager {
    authenticate(Authentication authentication)
 }
@@ -42,6 +45,7 @@ interface UserDetailsService <<DAO>> {
    UserDetails loadUserByUsername(String username)
 }
 
+AuthenticationManager "1" --> "*" AuthenticationProvider
 AuthenticationManager ..> UserDetailsService: find user details by nick
 AuthenticationManager -> Authentication
 

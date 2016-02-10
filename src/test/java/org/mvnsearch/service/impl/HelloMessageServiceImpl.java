@@ -16,6 +16,6 @@ public class HelloMessageServiceImpl implements HelloMessageService {
     @PreAuthorize("hasRole('ROLE_USER')")
     public String getMessage() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "Hello " + authentication;
+        return "Hello " + authentication.getName();
     }
 }

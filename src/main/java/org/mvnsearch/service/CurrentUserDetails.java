@@ -12,7 +12,7 @@ public class CurrentUserDetails extends org.springframework.security.core.userde
     private User user;
 
     public CurrentUserDetails(User user) {
-        super(user.getEmail(), user.getPasswordHash(), AuthorityUtils.createAuthorityList(user.getRole()));
+        super(user.getEmail(), user.getPasswordHash(), AuthorityUtils.commaSeparatedStringToAuthorityList(user.getRole()));
         this.user = user;
     }
 

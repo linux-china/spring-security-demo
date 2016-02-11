@@ -1,5 +1,7 @@
 package org.mvnsearch.config;
 
+import org.mvnsearch.service.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +16,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 
@@ -28,35 +34,38 @@ import javax.servlet.Filter;
  * @author linux_china
  */
 @Configuration
+@EnableWebSecurity
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private UserDetailsService userDetailsService;
+    private String rememberMeAppKey = "ytx";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterAfter(tokenAuthenticationFilter(), SecurityContextPersistenceFilter.class).sessionManagement()
+        http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
                 .antMatchers("/", "/css/**", "/doLogin").permitAll()
-                .antMatchers("/users/**").hasAuthority("ADMIN")
+                .antMatchers("/home").authenticated()
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .csrf().disable()
-                .httpBasic().disable()
+                .httpBasic().disable().anonymous().disable()
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error")
                 .usernameParameter("email")
+                .defaultSuccessUrl("/home")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .deleteCookies("remember-me")
-                .deleteCookies("token")
-                .logoutSuccessUrl("/")
                 .permitAll()
                 .and()
-                .rememberMe()
+                .rememberMe().key(rememberMeAppKey)
                 .and()
                 .exceptionHandling().accessDeniedPage("/403");
     }
@@ -65,20 +74,32 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/", "/css/**", "/doLogin").and();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    public Filter tokenAuthenticationFilter() {
-        return new TokenAuthenticationFilter();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return authenticationManagerBean();
+    }
+
+    @Bean
+    UserDetailsService customUserDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
+
+    @Bean
+    RememberMeServices rememberMeServices() {
+        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(rememberMeAppKey, userDetailsService);
+        rememberMeServices.setAlwaysRemember(true);
+        return rememberMeServices;
     }
 
 }

@@ -39,7 +39,7 @@ import javax.servlet.Filter;
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
-    private String rememberMeAppKey = "ytx";
+    private String rememberMeAppKey = "yourAppKey";
     private String[] whiteUrls = new String[]{"/", "/webjars/**", "/wro4j/**", "/static/**", "/js/**", "/images/**", "**/favicon.ico", "/css/**", "/doLogin"};
 
     @Override

@@ -40,13 +40,14 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
     private String rememberMeAppKey = "ytx";
+    private String[] whiteUrls = new String[]{"/", "/webjars/**", "/wro4j/**", "/static/**", "/js/**", "/images/**", "**/favicon.ico", "/css/**", "/doLogin"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/", "/css/**", "/doLogin").permitAll()
+                .antMatchers(whiteUrls).permitAll()
                 .antMatchers("/home").authenticated()
                 .anyRequest().fullyAuthenticated()
                 .and()
@@ -71,7 +72,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/", "/css/**", "/doLogin").and();
+        web.ignoring().antMatchers(whiteUrls);
     }
 
     @Autowired

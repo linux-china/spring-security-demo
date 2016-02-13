@@ -9,7 +9,8 @@ public class User {
     private Long id;
     private String email;
     private String passwordHash;
-    private String role;
+    private String authorities;
+    private boolean enabled=true;
 
     public Long getId() {
         return id;
@@ -35,11 +36,19 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public String getRole() {
-        return role;
+    public String getAuthorities() {
+        return authorities;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthorities(String authorities) {
+        this.authorities = authorities;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

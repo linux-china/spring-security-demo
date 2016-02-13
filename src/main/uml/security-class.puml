@@ -18,7 +18,7 @@ class DomainAccount {
 class CurrentUserDetails {
    DomainAccount account;
 }
-UserDetails "1" -right-> "*" GrantedAuthority: authrities(roles)
+UserDetails "1" -right-> "*" GrantedAuthority: authorities and roles
 CurrentUserDetails -up-|> UserDetails
 CurrentUserDetails .right.> DomainAccount
 

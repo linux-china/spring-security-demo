@@ -18,6 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         user.setEmail("admin@demo.com");
         user.setPassword("$2a$10$.K9OBfoRWH5PmbvCMpvxWONIszIuKN1SLXo960NXUZMn/EJi9lwJK");
         user.setAuthoritiesText("ROLE_ADMIN");
+        user.setEnabled(true);
         return new CurrentUserDetails(user);
     }
 }

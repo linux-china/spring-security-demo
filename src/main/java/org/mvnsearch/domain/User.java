@@ -8,9 +8,9 @@ package org.mvnsearch.domain;
 public class User {
     private Long id;
     private String email;
-    private String passwordHash;
-    private String authorities;
-    private boolean enabled=true;
+    private String password;
+    private String authoritiesText;
+    private boolean enabled = true;
 
     public Long getId() {
         return id;
@@ -28,20 +28,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public String getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(String authorities) {
-        this.authorities = authorities;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean isEnabled() {
@@ -50,5 +42,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getAuthoritiesText() {
+        return authoritiesText;
+    }
+
+    public void setAuthoritiesText(String authoritiesText) {
+        this.authoritiesText = authoritiesText;
     }
 }

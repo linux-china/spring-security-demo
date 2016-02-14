@@ -3,6 +3,7 @@ package org.mvnsearch.service;
 import org.mvnsearch.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author linux_china
  */
-public class CurrentUserDetails extends User implements org.springframework.security.core.userdetails.UserDetails {
+public class CurrentUserDetails extends User implements UserDetails {
     private List<GrantedAuthority> grantedAuthorities;
 
     public CurrentUserDetails(User user) {

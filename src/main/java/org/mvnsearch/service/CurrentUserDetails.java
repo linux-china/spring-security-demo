@@ -1,33 +1,48 @@
 package org.mvnsearch.service;
 
 import org.mvnsearch.domain.User;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * current user details
  *
  * @author linux_china
  */
-public class CurrentUserDetails extends org.springframework.security.core.userdetails.User {
-    private User user;
+public class CurrentUserDetails extends User implements org.springframework.security.core.userdetails.UserDetails {
+    private List<GrantedAuthority> grantedAuthorities;
 
     public CurrentUserDetails(User user) {
-        super(user.getEmail(), user.getPasswordHash(), AuthorityUtils.commaSeparatedStringToAuthorityList(user.getAuthorities()));
-        this.user = user;
+        setId(user.getId());
+        setEmail(user.getEmail());
+        setPassword(user.getPassword());
+        setEnabled(user.isEnabled());
+        setAuthoritiesText(user.getAuthoritiesText());
+        this.grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(user.getAuthoritiesText());
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public Long getId() {
-        return user.getId();
+    public String getUsername() {
+        return String.valueOf(getId());
     }
 
     @Override
-    public String toString() {
-        return "CurrentUser{" +
-                "user=" + user +
-                "} " + super.toString();
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return grantedAuthorities;
     }
+
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
 }

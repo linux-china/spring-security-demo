@@ -40,7 +40,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
     private String rememberMeAppKey = "yourAppKey";
-    private String[] whiteUrls = new String[]{"/", "/webjars/**", "/wro4j/**", "/static/**", "/js/**", "/images/**", "**/favicon.ico", "/css/**", "/doLogin"};
+    private String[] whiteUrls = new String[]{"/", "/webjars/**", "/wro4j/**", "/static/**", "/js/**", "/images/**", "**/favicon.ico", "/login", "/css/**", "/doLogin"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -49,7 +49,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 .antMatchers(whiteUrls).permitAll()
                 .antMatchers("/home").authenticated()
-                .anyRequest().fullyAuthenticated()
+                .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
                 .httpBasic().disable().anonymous().disable()

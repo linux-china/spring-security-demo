@@ -40,7 +40,7 @@ public class LoginController {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-        if (userDetails != null && "admin".equals(email) && passwordEncoder.matches(password, userDetails.getPassword())) {
+        if (userDetails != null && passwordEncoder.matches(password, userDetails.getPassword())) {
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
             rememberMeServices.loginSuccess(request, response, authentication);
             return "redirect:/home";

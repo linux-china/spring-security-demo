@@ -3,6 +3,7 @@ Spring Security Demo
 
 Authentication by token in cookie or from http headers
 
+Account = principal = UserDetails 
 
 ### FAQ
 

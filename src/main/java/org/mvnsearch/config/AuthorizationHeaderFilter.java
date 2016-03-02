@@ -54,6 +54,7 @@ public class AuthorizationHeaderFilter extends GenericFilterBean {
                     if (cookie.getName().equals(rememberMeKey)) {
                         found = true;
                         cookie.setValue(authorization);
+                        break;
                     }
                 }
                 if (!found) {

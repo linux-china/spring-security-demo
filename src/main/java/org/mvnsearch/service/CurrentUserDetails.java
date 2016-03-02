@@ -29,7 +29,6 @@ public class CurrentUserDetails extends User implements UserDetails {
         return String.valueOf(getId());
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return grantedAuthorities;
     }

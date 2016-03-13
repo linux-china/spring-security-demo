@@ -32,7 +32,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
     private String rememberMeAppKey = "yourAppKey";
-    private String[] whiteUrls = new String[]{"/", "/webjars/**", "/wro4j/**", "/jsondoc*", "/static/**", "/js/**", "/images/**", "**/favicon.ico", "/login", "/css/**", "/doLogin"};
+    private String[] whiteUrls = new String[]{"/jsondoc*"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

@@ -7,6 +7,7 @@ import org.mvnsearch.SpringSecurityDemoApplication;
 import org.mvnsearch.service.CurrentUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -38,13 +39,21 @@ public class WorkSpaceControllerTest {
     }
 
     @Test
-    @WithUserDetails
     public void testGood() throws Exception {
+        mockMvc.perform(get("/home").with(user(currentUserDetails())))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * current user details
+     *
+     * @return user details
+     */
+    public UserDetails currentUserDetails() {
         org.mvnsearch.domain.User user = new org.mvnsearch.domain.User();
         user.setEmail("libing.chen@gmail.com");
         user.setId(1L);
         user.setAuthoritiesText("ROLE_USER");
-        mockMvc.perform(get("/home").with(user(new CurrentUserDetails(user))))
-                .andExpect(status().isOk());
+        return new CurrentUserDetails(user);
     }
 }

@@ -25,7 +25,6 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
  *
  * @author linux_china
  */
-@Configuration
 @EnableWebSecurity
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {

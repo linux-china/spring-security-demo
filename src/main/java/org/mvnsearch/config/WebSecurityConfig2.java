@@ -17,7 +17,6 @@ import static com.google.common.base.Predicates.and;
  *
  * @author linux_china
  */
-@Configuration
 @EnableWebSecurity
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER - 1)
 class WebSecurityConfig2 extends WebSecurityConfigurerAdapter {

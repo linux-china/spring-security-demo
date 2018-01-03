@@ -29,8 +29,6 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
     private CsrfTokenRepository tokenRepository;
 
     private String rememberMeAppKey = "yourAppKey";
@@ -70,7 +68,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth, UserDetailsService userDetailsService) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
@@ -90,7 +88,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    RememberMeServices rememberMeServices() {
+    RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
         TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(rememberMeAppKey, userDetailsService);
         rememberMeServices.setAlwaysRemember(true);
         return rememberMeServices;

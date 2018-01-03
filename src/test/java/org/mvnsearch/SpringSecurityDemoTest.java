@@ -12,9 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
  *
  * @author linux_china
  */
-@ContextConfiguration(classes = SampleWebSecurityConfig.class)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-@WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
+//@ContextConfiguration(classes = SampleWebSecurityConfig.class)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
 public class SpringSecurityDemoTest extends SpringTest {
     @Autowired
     private HelloMessageService helloMessageService;

@@ -6,11 +6,9 @@ import org.junit.runner.RunWith;
 import org.mvnsearch.SpringSecurityDemoApplication;
 import org.mvnsearch.service.CurrentUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -25,9 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author linux_china
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SpringSecurityDemoApplication.class)
-@WebAppConfiguration
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SpringSecurityDemoApplication.class)
 public class WorkSpaceControllerTest {
     private MockMvc mockMvc;
     @Autowired

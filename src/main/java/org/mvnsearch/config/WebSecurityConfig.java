@@ -4,7 +4,6 @@ import org.mvnsearch.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 
 /**
  * web security config
@@ -30,21 +30,23 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private CsrfTokenRepository tokenRepository;
+
     private String rememberMeAppKey = "yourAppKey";
+
     private String[] whiteUrls = new String[]{"/jsondoc*"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterBefore(new AuthorizationHeaderFilter(), RememberMeAuthenticationFilter.class)
+        http.csrf().csrfTokenRepository(tokenRepository).and().addFilterBefore(new AuthorizationHeaderFilter(), RememberMeAuthenticationFilter.class)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers(whiteUrls).permitAll()
                 .antMatchers("/home").authenticated()
                 .anyRequest().authenticated()
                 .and()
-                .csrf().disable()
-                .httpBasic().disable().anonymous().disable()
+                .httpBasic().disable()
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error")
@@ -87,12 +89,16 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new UserDetailsServiceImpl();
     }
 
-
     @Bean
     RememberMeServices rememberMeServices() {
         TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(rememberMeAppKey, userDetailsService);
         rememberMeServices.setAlwaysRemember(true);
         return rememberMeServices;
+    }
+
+    @Bean
+    public CsrfTokenRepository tokenRepository() {
+        return new CacheCsrfTokenRepository();
     }
 
 }

@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @author linux_china
  */
 @EnableWebSecurity
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER - 1)
+@Order(SecurityProperties.BASIC_AUTH_ORDER - 1)
 class WebSecurityConfig2 extends WebSecurityConfigurerAdapter {
     @Value("${security.ignored}")
     private String[] whiteUrls;

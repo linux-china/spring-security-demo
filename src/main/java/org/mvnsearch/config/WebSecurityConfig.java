@@ -26,7 +26,7 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
  * @author linux_china
  */
 @EnableWebSecurity
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+@Order(SecurityProperties.BASIC_AUTH_ORDER)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CsrfTokenRepository tokenRepository;

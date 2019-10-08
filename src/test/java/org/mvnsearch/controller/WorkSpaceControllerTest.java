@@ -1,14 +1,12 @@
 package org.mvnsearch.controller;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mvnsearch.SpringSecurityDemoApplication;
 import org.mvnsearch.service.CurrentUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -23,14 +21,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author linux_china
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringSecurityDemoApplication.class)
 public class WorkSpaceControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private WebApplicationContext context;
 
-    @Before
+    @BeforeAll
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
     }

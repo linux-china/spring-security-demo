@@ -1,11 +1,8 @@
 package org.mvnsearch;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mvnsearch.service.HelloMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ContextConfiguration;
 
 /**
  * spring security demo test

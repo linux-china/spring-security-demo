@@ -35,3 +35,4 @@ Account = principal = UserDetails
 ### reference
 
 * Spring Security Reference: https://docs.spring.io/spring-security/site/docs/5.1.4.RELEASE/reference/htmlsingle/
+* How to do password hashing in Java applications the right way: https://foojay.io/today/how-to-do-password-hashing-in-java-applications-the-right-way/ 

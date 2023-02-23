@@ -38,3 +38,4 @@ Account = principal = UserDetails
 * OWASP Cheat Sheet Series: https://cheatsheetseries.owasp.org/index.html
 * How to do password hashing in Java applications the right way: https://foojay.io/today/how-to-do-password-hashing-in-java-applications-the-right-way/ 
 * Password Storage Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html 
+* Introduction to Spring Method Security: https://www.baeldung.com/spring-security-method-security

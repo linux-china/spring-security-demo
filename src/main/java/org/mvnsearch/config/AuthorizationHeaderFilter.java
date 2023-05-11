@@ -33,7 +33,7 @@ public class AuthorizationHeaderFilter extends GenericFilterBean {
         chain.doFilter(request, response);
     }
 
-    public class AuthorizationHeaderWrapper extends HttpServletRequestWrapper {
+    public static class AuthorizationHeaderWrapper extends HttpServletRequestWrapper {
 
         private String authorization;
 

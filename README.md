@@ -17,7 +17,7 @@ Spring Security Demo with following cases:
 * SecurityContext: A Spring Security object that holds a principal's authentication details.
 * Authentication by token in cookie or from http headers
 
-Account = principal = UserDetails 
+Account = principal = UserDetails
 
 ### Vocabulary 2
 
@@ -25,7 +25,7 @@ Account = principal = UserDetails
 * authorization: refers to the process of deciding whether a principal is allowed to perform an action within your application.
 * authority: "permission" or a "right", 批准,准许 grant access to something.
 * role: are just "permissions" with a naming convention
-* Bcrypt: Blowfish password hashing code  BCryptPasswordEncoder
+* Bcrypt: Blowfish password hashing code BCryptPasswordEncoder
 * token的设计: base64(username + ":" + expirationTime + ":" + md5Hex(username + ":" + expirationTime + ":" password + ":" + key))
 
 ### FAQ
@@ -36,6 +36,8 @@ Account = principal = UserDetails
 
 * Spring Security Reference: https://docs.spring.io/spring-security/site/docs/5.1.4.RELEASE/reference/htmlsingle/
 * OWASP Cheat Sheet Series: https://cheatsheetseries.owasp.org/index.html
-* How to do password hashing in Java applications the right way: https://foojay.io/today/how-to-do-password-hashing-in-java-applications-the-right-way/ 
-* Password Storage Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html 
+* How to do password hashing in Java applications the right way: https://foojay.io/today/how-to-do-password-hashing-in-java-applications-the-right-way/
+* Password Storage Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
 * Introduction to Spring Method Security: https://www.baeldung.com/spring-security-method-security
+* 10 Spring Security Best Practices to Learn in 10 Minutes: https://medium.com/javarevisited/10-spring-security-best-practices-to-learn-in-10-minutes-f1c462672b8b
+
